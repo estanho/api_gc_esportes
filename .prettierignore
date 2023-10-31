@@ -1,0 +1,3 @@
+# Ignore
+src/routes.ts
+src/database/cidades_script.ts

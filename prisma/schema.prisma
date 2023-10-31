@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../documentation/diagrams/ERD.md"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Esporte {
+  id          Int          @id
+  nome        String
+  equipes     Equipe[]
+  Campeonatos Campeonato[]
+
+  @@map("esportes")
+}
+
+model Cidade {
+  id         Int          @id
+  nome       String
+  Campeonato Campeonato[]
+
+  @@map("cidades")
+}
+
+model Equipe {
+  id            Int         @id @default(autoincrement())
+  nome          String
+  descricao     String
+  ativo         Boolean?    @default(true)
+  id_usuario    Int // ID do Criador da Equipe
+  id_esporte    Int
+  esporte       Esporte     @relation(fields: [id_esporte], references: [id])
+  id_campeonato Int
+  campeonato    Campeonato  @relation(fields: [id_campeonato], references: [id])
+  usuarios      Usuario[]
+  resultado     Resultado[]
+
+  @@map("equipes")
+}
+
+model Campeonato {
+  id                    Int         @id @default(autoincrement())
+  nome                  String
+  descricao             String
+  endereco              String
+  bairro                String
+  data_inicio_inscricao DateTime
+  data_final_inscricao  DateTime
+  data_horario_inicio   DateTime
+  total_atletas_equipe  Int
+  total_equipes         Int
+  ativo                 Boolean?    @default(true)
+  id_usuario            Int // ID do Criador do Campeonato
+  id_cidade             Int
+  cidade                Cidade      @relation(fields: [id_cidade], references: [id])
+  id_esporte            Int
+  esporte               Esporte     @relation(fields: [id_esporte], references: [id])
+  equipes               Equipe[]
+  resultado             Resultado[]
+
+  @@map("campeonatos")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  id_google String
+  nome      String
+  email     String   @unique
+  avatar    String
+  equipes   Equipe[]
+
+  @@map("usuarios")
+}
+
+model Resultado {
+  id            Int        @id @default(autoincrement())
+  posicao       Int
+  id_equipe     Int
+  equipes       Equipe     @relation(fields: [id_equipe], references: [id])
+  id_campeonato Int
+  campeonato    Campeonato @relation(fields: [id_campeonato], references: [id])
+
+  @@map("resultados")
+}
