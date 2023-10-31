@@ -16,7 +16,7 @@ export class routesAuthentication {
         console.log('Erro Autenticação: Não foi encontrado token');
         throw new Error();
       } else {
-        if (process.env.API_AUTH_DEBUG === 'FALSE') {
+        if (process.env.API_AUTH_DEBUG === 'TRUE') {
           req.body._id = 1;
           next();
         } else {
