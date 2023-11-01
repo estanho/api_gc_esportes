@@ -74,6 +74,11 @@ export class EquipeRepository {
             nome: true,
           },
         },
+        usuarios: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 
@@ -126,6 +131,11 @@ export class EquipeRepository {
             nome: true,
           },
         },
+        usuarios: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 
@@ -171,6 +181,11 @@ export class EquipeRepository {
         esporte: {
           select: {
             nome: true,
+          },
+        },
+        usuarios: {
+          select: {
+            email: true,
           },
         },
       },
@@ -323,6 +338,11 @@ export class EquipeRepository {
             nome: true,
           },
         },
+        usuarios: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 
@@ -348,6 +368,11 @@ export class EquipeRepository {
         esporte: {
           select: {
             nome: true,
+          },
+        },
+        usuarios: {
+          select: {
+            email: true,
           },
         },
       },
