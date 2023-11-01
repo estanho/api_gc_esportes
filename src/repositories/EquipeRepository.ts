@@ -43,6 +43,11 @@ export class EquipeRepository {
             nome: true,
           },
         },
+        usuarios: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 
