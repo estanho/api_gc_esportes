@@ -48,6 +48,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
@@ -79,6 +80,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
@@ -136,6 +138,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
@@ -188,6 +191,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
@@ -343,6 +347,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
@@ -375,6 +380,7 @@ export class EquipeRepository {
             email: true,
           },
         },
+        id_campeonato: true,
       },
     });
 
