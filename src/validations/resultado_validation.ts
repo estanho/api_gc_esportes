@@ -17,7 +17,7 @@ type typeResultadoCreation = InferType<typeof creationResultadoSchema>;
 
 const optionalResultadoSchema = object({
   _id: number(),
-  titulo: string().notRequired(),
+  nome: string().notRequired(),
   id_esporte: number().notRequired(),
   id_cidade: number().notRequired(),
 })
