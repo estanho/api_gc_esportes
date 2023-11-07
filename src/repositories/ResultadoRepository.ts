@@ -16,7 +16,7 @@ export class ResultadoRepository {
         OR: [
           { id_esporte: data.id_esporte },
           { id_cidade: data.id_cidade },
-          { nome: data.nome },
+          { nome: { contains: data.nome } },
         ],
       };
     } else {
