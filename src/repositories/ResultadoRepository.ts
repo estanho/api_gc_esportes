@@ -83,6 +83,12 @@ export class ResultadoRepository {
       };
     }
 
+    await prisma.resultado.deleteMany({
+      where: {
+        id_campeonato: ativo.id,
+      },
+    });
+
     const posicoes = [];
 
     for (let i = 0; newData.posicoes.length > i; i++) {
