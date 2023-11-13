@@ -15,8 +15,8 @@ export class CampeonatoRepository {
       whereCondition = {
         ativo: true,
         OR: [
-          { descricao: data.descricao },
-          { nome: data.nome },
+          { nome: { contains: data.nome, mode: 'insensitive' } },
+          { descricao: { contains: data.descricao, mode: 'insensitive' } },
           { id_esporte: data.id_esporte },
           { data_inicio_inscricao: data.data_inicio_inscricao },
           { data_final_inscricao: data.data_final_inscricao },

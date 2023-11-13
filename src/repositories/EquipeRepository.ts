@@ -17,8 +17,8 @@ export class EquipeRepository {
           ativo: true,
         },
         OR: [
-          { nome: data.nome },
-          { descricao: data.descricao },
+          { nome: { contains: data.nome, mode: 'insensitive' } },
+          { descricao: { contains: data.descricao, mode: 'insensitive' } },
           { id_esporte: data.id_esporte },
           { id_campeonato: data.id_campeonato },
         ],
