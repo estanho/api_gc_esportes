@@ -11,18 +11,39 @@ export class EquipeRepository {
     let whereCondition = {};
 
     if (Object.keys(data).length > 1) {
-      whereCondition = {
-        ativo: true,
-        campeonato: {
+      if (data.id_esporte !== undefined || data.id_campeonato !== undefined) {
+        // Se id_esporte ou id_cidade estiverem presentes, a consulta deve considerar isso
+        whereCondition = {
           ativo: true,
-        },
-        OR: [
-          { nome: { contains: data.nome, mode: 'insensitive' } },
-          { descricao: { contains: data.descricao, mode: 'insensitive' } },
-          { id_esporte: data.id_esporte },
-          { id_campeonato: data.id_campeonato },
-        ],
-      };
+          campeonato: {
+            ativo: true,
+          },
+          ...(data.id_esporte !== undefined && { id_esporte: data.id_esporte }),
+          ...(data.id_campeonato !== undefined && {
+            id_campeonato: data.id_campeonato,
+          }),
+          OR: [
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+            { descricao: { contains: data.descricao, mode: 'insensitive' } },
+            { id_esporte: data.id_esporte },
+            { id_campeonato: data.id_campeonato },
+          ],
+        };
+      } else {
+        // Caso contrário, considere as outras opções
+        whereCondition = {
+          ativo: true,
+          campeonato: {
+            ativo: true,
+          },
+          OR: [
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+            { descricao: { contains: data.descricao, mode: 'insensitive' } },
+            { id_esporte: data.id_esporte },
+            { id_campeonato: data.id_campeonato },
+          ],
+        };
+      }
     } else {
       whereCondition = {
         ativo: true,
@@ -166,6 +187,21 @@ export class EquipeRepository {
               field: '',
               type: 'prisma',
               message: 'Record not found.',
+            },
+          ],
+        },
+      };
+    }
+
+    if (ativo.id_esporte !== newData.id_esporte) {
+      return {
+        status: 'error',
+        message: {
+          errors: [
+            {
+              field: '',
+              type: 'prisma',
+              message: 'Incorrect sport.',
             },
           ],
         },

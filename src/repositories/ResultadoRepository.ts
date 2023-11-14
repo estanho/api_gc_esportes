@@ -11,14 +11,29 @@ export class ResultadoRepository {
     let whereCondition = {};
 
     if (Object.keys(data).length > 1) {
-      whereCondition = {
-        ativo: true,
-        OR: [
-          { id_esporte: data.id_esporte },
-          { id_cidade: data.id_cidade },
-          { nome: { contains: data.nome, mode: 'insensitive' } },
-        ],
-      };
+      if (data.id_esporte !== undefined || data.id_cidade !== undefined) {
+        // Se id_esporte ou id_cidade estiverem presentes, a consulta deve considerar isso
+        whereCondition = {
+          ativo: true,
+          ...(data.id_esporte !== undefined && { id_esporte: data.id_esporte }),
+          ...(data.id_cidade !== undefined && { id_cidade: data.id_cidade }),
+          OR: [
+            { id_esporte: data.id_esporte },
+            { id_cidade: data.id_cidade },
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+          ],
+        };
+      } else {
+        // Caso contrário, considere as outras opções
+        whereCondition = {
+          ativo: true,
+          OR: [
+            { id_esporte: data.id_esporte },
+            { id_cidade: data.id_cidade },
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+          ],
+        };
+      }
     } else {
       whereCondition = {
         ativo: true,

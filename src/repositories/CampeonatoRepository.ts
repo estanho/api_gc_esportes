@@ -11,21 +11,41 @@ export class CampeonatoRepository {
 
     let whereCondition = {};
 
+    console.log(data.id_cidade);
+    console.log(data.id_esporte);
+
     if (Object.keys(data).length > 1) {
-      whereCondition = {
-        ativo: true,
-        id_esporte: data?.id_esporte,
-        OR: [
-          { nome: { contains: data.nome, mode: 'insensitive' } },
-          { descricao: { contains: data.descricao, mode: 'insensitive' } },
-          { data_inicio_inscricao: data.data_inicio_inscricao },
-          { data_final_inscricao: data.data_final_inscricao },
-          { data_horario_inicio: data.data_horario_inicio },
-          { endereco: { contains: data.endereco } },
-          { id_cidade: { contains: data.id_cidade } },
-          { bairro: { contains: data.bairro } },
-        ],
-      };
+      if (data.id_esporte !== undefined || data.id_cidade !== undefined) {
+        // Se id_esporte ou id_cidade estiverem presentes, a consulta deve considerar isso
+        whereCondition = {
+          ativo: true,
+          ...(data.id_esporte !== undefined && { id_esporte: data.id_esporte }),
+          ...(data.id_cidade !== undefined && { id_cidade: data.id_cidade }),
+          OR: [
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+            { descricao: { contains: data.descricao, mode: 'insensitive' } },
+            { data_inicio_inscricao: data.data_inicio_inscricao },
+            { data_final_inscricao: data.data_final_inscricao },
+            { data_horario_inicio: data.data_horario_inicio },
+            { endereco: { contains: data.endereco } },
+            { bairro: { contains: data.bairro } },
+          ],
+        };
+      } else {
+        // Caso contrário, considere as outras opções
+        whereCondition = {
+          ativo: true,
+          OR: [
+            { nome: { contains: data.nome, mode: 'insensitive' } },
+            { descricao: { contains: data.descricao, mode: 'insensitive' } },
+            { data_inicio_inscricao: data.data_inicio_inscricao },
+            { data_final_inscricao: data.data_final_inscricao },
+            { data_horario_inicio: data.data_horario_inicio },
+            { endereco: { contains: data.endereco } },
+            { bairro: { contains: data.bairro } },
+          ],
+        };
+      }
     } else {
       whereCondition = {
         ativo: true,
