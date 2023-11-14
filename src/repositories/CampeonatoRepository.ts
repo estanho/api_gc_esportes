@@ -12,37 +12,20 @@ export class CampeonatoRepository {
     let whereCondition = {};
 
     if (Object.keys(data).length > 1) {
-      if (data.id_esporte !== undefined) {
-        whereCondition = {
-          ativo: true,
-          id_esporte: data.id_esporte,
-          OR: [
-            { nome: { contains: data.nome, mode: 'insensitive' } },
-            { descricao: { contains: data.descricao, mode: 'insensitive' } },
-            { data_inicio_inscricao: data.data_inicio_inscricao },
-            { data_final_inscricao: data.data_final_inscricao },
-            { data_horario_inicio: data.data_horario_inicio },
-            { endereco: { contains: data.endereco } },
-            { id_cidade: { contains: data.id_cidade } },
-            { bairro: { contains: data.bairro } },
-          ],
-        };
-      } else {
-        whereCondition = {
-          ativo: true,
-          OR: [
-            { nome: { contains: data.nome, mode: 'insensitive' } },
-            { descricao: { contains: data.descricao, mode: 'insensitive' } },
-            { id_esporte: data.id_esporte },
-            { data_inicio_inscricao: data.data_inicio_inscricao },
-            { data_final_inscricao: data.data_final_inscricao },
-            { data_horario_inicio: data.data_horario_inicio },
-            { endereco: { contains: data.endereco } },
-            { id_cidade: { contains: data.id_cidade } },
-            { bairro: { contains: data.bairro } },
-          ],
-        };
-      }
+      whereCondition = {
+        ativo: true,
+        id_esporte: data?.id_esporte,
+        OR: [
+          { nome: { contains: data.nome, mode: 'insensitive' } },
+          { descricao: { contains: data.descricao, mode: 'insensitive' } },
+          { data_inicio_inscricao: data.data_inicio_inscricao },
+          { data_final_inscricao: data.data_final_inscricao },
+          { data_horario_inicio: data.data_horario_inicio },
+          { endereco: { contains: data.endereco } },
+          { id_cidade: { contains: data.id_cidade } },
+          { bairro: { contains: data.bairro } },
+        ],
+      };
     } else {
       whereCondition = {
         ativo: true,
