@@ -11,9 +11,6 @@ export class CampeonatoRepository {
 
     let whereCondition = {};
 
-    console.log(data.id_cidade);
-    console.log(data.id_esporte);
-
     if (Object.keys(data).length > 1) {
       if (data.id_esporte !== undefined || data.id_cidade !== undefined) {
         // Se id_esporte ou id_cidade estiverem presentes, a consulta deve considerar isso
