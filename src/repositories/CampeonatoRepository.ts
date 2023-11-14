@@ -12,7 +12,7 @@ export class CampeonatoRepository {
     let whereCondition = {};
 
     if (Object.keys(data).length > 1) {
-      if (data.id_esporte) {
+      if (data.id_esporte !== undefined) {
         whereCondition = {
           ativo: true,
           id_esporte: data.id_esporte,
